@@ -15,8 +15,8 @@
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#f3f4f6;
+    font-family:Arial,"Noto Sans Thai",sans-serif;
+    background:#f5f5f5;
     margin:0;
     padding:15px;
     color:#111;
@@ -25,19 +25,20 @@ body{
 .container{
     max-width:650px;
     margin:auto;
-    background:white;
+    background:#fff;
     padding:20px;
     border-radius:18px;
     box-shadow:0 4px 20px rgba(0,0,0,.08);
 }
 
 h1{
-    font-size:25px;
-    margin-top:0;
+    font-size:27px;
+    margin:5px 0 10px;
 }
 
-p{
-    font-size:17px;
+.subtitle{
+    font-size:18px;
+    margin-bottom:15px;
 }
 
 input[type=file]{
@@ -50,12 +51,13 @@ input[type=file]{
 }
 
 #preview{
-    width:100%;
-    max-height:500px;
-    object-fit:contain;
-    margin-top:10px;
-    border-radius:12px;
     display:none;
+    width:100%;
+    max-height:600px;
+    object-fit:contain;
+    margin-top:15px;
+    border-radius:12px;
+    background:#eee;
 }
 
 button{
@@ -64,95 +66,91 @@ button{
     border:0;
     border-radius:12px;
     background:#ff4b4b;
-    color:white;
-    font-size:18px;
+    color:#fff;
+    font-size:19px;
     font-weight:bold;
     margin-top:12px;
+    cursor:pointer;
 }
 
 button:disabled{
-    opacity:.6;
+    background:#aaa;
 }
 
-.green{
-    background:#16a34a;
-}
-
-.blue{
-    background:#2563eb;
+.copyBtn{
+    background:#222;
 }
 
 #status{
+    font-size:18px;
     margin-top:15px;
-    font-size:17px;
     font-weight:bold;
 }
 
-.box{
-    background:#f5f5f5;
-    padding:16px;
-    border-radius:12px;
+.resultBox{
+    background:#f3f3f3;
+    padding:18px;
+    border-radius:15px;
     margin-top:15px;
 }
 
-.resultTitle{
+.sectionTitle{
+    font-size:23px;
     font-weight:bold;
-    font-size:20px;
-    margin-bottom:10px;
+    margin-bottom:15px;
 }
 
-#productInfo{
-    white-space:pre-wrap;
-    font-size:18px;
-    line-height:1.8;
-}
-
-#ocrResult{
-    white-space:pre-wrap;
-    font-size:15px;
-    line-height:1.6;
-    max-height:350px;
-    overflow:auto;
-}
-
-.hook{
-    background:white;
-    padding:13px;
-    border-radius:10px;
-    margin:8px 0;
-    border-left:5px solid #ff4b4b;
-    font-size:17px;
-    line-height:1.5;
-}
-
-#scriptResult{
-    white-space:pre-wrap;
-    font-size:18px;
+.info{
+    font-size:19px;
     line-height:1.7;
 }
 
-.hidden{
-    display:none;
-}
-
 .price{
-    font-size:25px;
+    font-size:30px;
     font-weight:bold;
-    color:#e11d48;
+    color:#e51c3e;
 }
 
-.warning{
-    background:#fff7ed;
-    color:#9a3412;
-    padding:12px;
-    border-radius:10px;
+.hook{
+    background:#fff;
+    padding:15px;
+    border-radius:12px;
     margin-top:10px;
+    border-left:5px solid #ff4b4b;
+    font-size:19px;
+    line-height:1.6;
+}
+
+.script{
+    background:#fff;
+    padding:15px;
+    border-radius:12px;
+    margin-top:10px;
+    font-size:18px;
+    line-height:1.7;
+    white-space:pre-wrap;
+}
+
+.raw{
+    margin-top:20px;
+}
+
+.raw textarea{
+    width:100%;
+    min-height:180px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
     font-size:15px;
+}
+
+.loading{
+    text-align:center;
+    padding:15px;
 }
 
 </style>
 </head>
-
 
 <body>
 
@@ -160,7 +158,9 @@ button:disabled{
 
 <h1>📷 Affiliate AI Mobile</h1>
 
-<p>เลือกรูปสินค้าจากมือถือ</p>
+<div class="subtitle">
+เลือกภาพสินค้าจากมือถือ
+</div>
 
 <input
     type="file"
@@ -179,88 +179,24 @@ button:disabled{
 
 <div id="status"></div>
 
-
-<div id="analysis" class="hidden">
-
-
-    <!-- ข้อมูลสินค้า -->
-
-    <div class="box">
-
-        <div class="resultTitle">
-            🛍️ ข้อมูลสินค้า
-        </div>
-
-        <div id="productInfo"></div>
-
-    </div>
-
-
-    <!-- Hook -->
-
-    <div class="box">
-
-        <div class="resultTitle">
-            🔥 Hook ขายสินค้า
-        </div>
-
-        <div id="hooks"></div>
-
-    </div>
-
-
-    <!-- Script -->
-
-    <div class="box">
-
-        <div class="resultTitle">
-            🎬 สคริปต์ขาย 20 วินาที
-        </div>
-
-        <div id="scriptResult"></div>
-
-        <button
-            class="green"
-            onclick="copyScript()"
-        >
-            📋 คัดลอกสคริปต์
-        </button>
-
-    </div>
+<div id="result"></div>
 
 </div>
-
-
-<!-- OCR -->
-
-<div class="box">
-
-    <div class="resultTitle">
-        📝 ข้อความที่อ่านจากภาพ
-    </div>
-
-    <div id="ocrResult"></div>
-
-</div>
-
-</div>
-
-
 
 <script>
 
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-let finalScript = "";
+let lastResultText = "";
 
 
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
 
-/* =====================================================
-   เลือกรูป
-===================================================== */
-
-document
-.getElementById("imageInput")
-.addEventListener("change",function(){
+document.getElementById("imageInput").addEventListener("change", function(){
 
     const file = this.files[0];
 
@@ -268,921 +204,329 @@ document
         return;
     }
 
-    const preview =
-        document.getElementById("preview");
+    const preview = document.getElementById("preview");
 
-    preview.src =
-        URL.createObjectURL(file);
+    preview.src = URL.createObjectURL(file);
 
     preview.style.display = "block";
-
-    document
-    .getElementById("analysis")
-    .classList.add("hidden");
-
-    document
-    .getElementById("ocrResult")
-    .innerText = "";
-
-    document
-    .getElementById("status")
-    .innerText = "";
 
 });
 
 
+/* =========================================================
+   CLEAN OCR TEXT
+========================================================= */
 
-/* =====================================================
-   โหลดรูป
-===================================================== */
+function cleanOCR(text){
 
-function loadImage(file){
+    if(!text){
+        return "";
+    }
 
-    return new Promise(function(resolve,reject){
+    let t = text;
 
-        const img = new Image();
+    // แปลงอักขระที่ OCR มักอ่านผิด
+    t = t.replace(/฿/g,"฿");
+    t = t.replace(/,/g,",");
+    t = t.replace(/\r/g,"");
 
-        img.onload = function(){
-            resolve(img);
+    // ลบช่องว่างซ้ำ
+    t = t.replace(/[ \t]+/g," ");
+
+    // ลบบรรทัดว่างจำนวนมาก
+    t = t.replace(/\n{3,}/g,"\n\n");
+
+    return t.trim();
+}
+
+
+/* =========================================================
+   NORMALIZE PRICE
+========================================================= */
+
+function normalizePrice(value){
+
+    if(!value){
+        return null;
+    }
+
+    let v = value
+        .replace(/[^\d.,]/g,"")
+        .replace(/,/g,"");
+
+    const num = parseFloat(v);
+
+    if(!isFinite(num)){
+        return null;
+    }
+
+    return num;
+}
+
+
+/* =========================================================
+   FIND MAIN PRODUCT PRICE
+========================================================= */
+
+function findMainPrice(text){
+
+    const candidates = [];
+
+    /*
+       รูปแบบที่ต้องการ เช่น
+
+       ฿2,151
+       ฿2151
+       ฿2,151.00
+       2,151 บาท
+       ราคา 2,151
+    */
+
+    const patterns = [
+
+        /฿\s*([\d,]+(?:\.\d{1,2})?)/gi,
+
+        /([\d,]+(?:\.\d{1,2})?)\s*บาท/gi,
+
+        /ราคา\s*[:：]?\s*฿?\s*([\d,]+(?:\.\d{1,2})?)/gi,
+
+        /ซื้อโดยใช้โค้ด\s*฿?\s*([\d,]+(?:\.\d{1,2})?)/gi
+
+    ];
+
+    patterns.forEach(function(regex){
+
+        let match;
+
+        while((match = regex.exec(text)) !== null){
+
+            const price = normalizePrice(match[1]);
+
+            if(price !== null){
+
+                candidates.push({
+                    price:price,
+                    text:match[0]
+                });
+
+            }
+
+        }
+
+    });
+
+
+    /*
+       ตัดราคาที่ไม่น่าใช่ราคาสินค้า
+    */
+
+    const filtered = candidates.filter(function(item){
+
+        const p = item.price;
+
+        // ราคาต่ำกว่า 20 มักเป็น OCR ผิด
+        if(p < 20){
+            return false;
+        }
+
+        // ราคาสูงผิดปกติ
+        if(p > 1000000){
+            return false;
+        }
+
+        return true;
+
+    });
+
+
+    if(filtered.length === 0){
+        return null;
+    }
+
+
+    /*
+       ให้คะแนนราคา
+
+       ราคาที่มี ฿ จะได้คะแนนสูงสุด
+       ราคาที่อยู่ใกล้คำว่า "ราคา" ได้คะแนนเพิ่ม
+       ราคาที่เป็นทศนิยมแบบ 194.15 มักเป็นค่างวด
+    */
+
+    const scored = filtered.map(function(item){
+
+        let score = 0;
+
+        if(item.text.includes("฿")){
+            score += 100;
+        }
+
+        if(item.text.includes("บาท")){
+            score += 50;
+        }
+
+        if(item.text.includes("ราคา")){
+            score += 60;
+        }
+
+        if(item.price >= 100){
+            score += 20;
+        }
+
+        /*
+           ราคาทศนิยม เช่น 194.15
+           มักเป็นค่างวด ไม่ใช่ราคาหลัก
+        */
+
+        if(item.price % 1 !== 0){
+            score -= 20;
+        }
+
+        /*
+           ราคาหลักมักอยู่หลักร้อย-หลักแสน
+        */
+
+        if(item.price >= 500){
+            score += 10;
+        }
+
+        return {
+            ...item,
+            score:score
         };
 
-        img.onerror = reject;
+    });
 
-        img.src =
-            URL.createObjectURL(file);
 
+    scored.sort(function(a,b){
+
+        if(b.score !== a.score){
+            return b.score - a.score;
+        }
+
+        return b.price - a.price;
+
+    });
+
+
+    return scored[0].price;
+
+}
+
+
+/* =========================================================
+   FORMAT PRICE
+========================================================= */
+
+function formatPrice(price){
+
+    if(price === null){
+        return "ไม่พบราคา";
+    }
+
+    return "฿" + price.toLocaleString("th-TH",{
+        minimumFractionDigits:0,
+        maximumFractionDigits:2
     });
 
 }
 
 
-
-/* =====================================================
-   สร้าง Canvas สำหรับ OCR
-===================================================== */
-
-function createCanvas(img,enhanced=false){
-
-    const maxWidth = 2200;
-
-    let scale =
-        maxWidth / img.naturalWidth;
-
-    if(scale > 2){
-        scale = 2;
-    }
-
-    if(scale < 1){
-        scale = 1;
-    }
-
-    const width =
-        Math.round(img.naturalWidth * scale);
-
-    const height =
-        Math.round(img.naturalHeight * scale);
-
-
-    const canvas =
-        document.createElement("canvas");
-
-    canvas.width = width;
-    canvas.height = height;
-
-
-    const ctx =
-        canvas.getContext(
-            "2d",
-            {
-                willReadFrequently:true
-            }
-        );
-
-
-    ctx.drawImage(
-        img,
-        0,
-        0,
-        width,
-        height
-    );
-
-
-    /*
-        เพิ่มความชัดสำหรับ OCR
-    */
-
-    if(enhanced){
-
-        const imageData =
-            ctx.getImageData(
-                0,
-                0,
-                width,
-                height
-            );
-
-        const data =
-            imageData.data;
-
-
-        for(
-            let i=0;
-            i<data.length;
-            i+=4
-        ){
-
-            let gray =
-                0.299 * data[i] +
-                0.587 * data[i+1] +
-                0.114 * data[i+2];
-
-
-            /*
-                เพิ่ม contrast
-            */
-
-            gray =
-                ((gray - 128) * 1.6) + 128;
-
-
-            gray =
-                Math.max(
-                    0,
-                    Math.min(
-                        255,
-                        gray
-                    )
-                );
-
-
-            data[i] =
-                gray;
-
-            data[i+1] =
-                gray;
-
-            data[i+2] =
-                gray;
-
-        }
-
-
-        ctx.putImageData(
-            imageData,
-            0,
-            0
-        );
-
-    }
-
-
-    return canvas;
-
-}
-
-
-
-/* =====================================================
-   OCR
-===================================================== */
-
-async function runOCR(worker,canvas){
-
-    const result =
-        await worker.recognize(canvas);
-
-    return result.data.text || "";
-
-}
-
-
-
-/* =====================================================
-   อ่านภาพ
-===================================================== */
-
-async function readImage(){
-
-    const input =
-        document.getElementById(
-            "imageInput"
-        );
-
-    const status =
-        document.getElementById(
-            "status"
-        );
-
-    const result =
-        document.getElementById(
-            "ocrResult"
-        );
-
-    const analysis =
-        document.getElementById(
-            "analysis"
-        );
-
-    const button =
-        document.getElementById(
-            "readBtn"
-        );
-
-
-    if(!input.files.length){
-
-        alert(
-            "กรุณาเลือกรูปสินค้าก่อน"
-        );
-
-        return;
-
-    }
-
-
-    button.disabled = true;
-
-    button.innerText =
-        "⏳ กำลังอ่านภาพ...";
-
-
-    analysis
-    .classList
-    .add("hidden");
-
-
-    result.innerText = "";
-
-
-    try{
-
-
-        status.innerText =
-            "⏳ กำลังเตรียมภาพ...";
-
-
-        const img =
-            await loadImage(
-                input.files[0]
-            );
-
-
-        /*
-            OCR รอบที่ 1
-        */
-
-        const normalCanvas =
-            createCanvas(
-                img,
-                false
-            );
-
-
-        /*
-            OCR รอบที่ 2
-            เพิ่มความชัด
-        */
-
-        const enhancedCanvas =
-            createCanvas(
-                img,
-                true
-            );
-
-
-        status.innerText =
-            "⏳ กำลังอ่านภาษาไทยและตัวเลข...";
-
-
-        const worker =
-            await Tesseract.createWorker(
-                "tha+eng"
-            );
-
-
-        const textNormal =
-            await runOCR(
-                worker,
-                normalCanvas
-            );
-
-
-        const textEnhanced =
-            await runOCR(
-                worker,
-                enhancedCanvas
-            );
-
-
-        await worker.terminate();
-
-
-        /*
-            รวม OCR
-        */
-
-        const combinedText =
-            textNormal +
-            "\n" +
-            textEnhanced;
-
-
-        result.innerText =
-            combinedText;
-
-
-        status.innerText =
-            "⏳ กำลังวิเคราะห์สินค้าและตรวจสอบราคา...";
-
-
-        analyzeProduct(
-            combinedText
-        );
-
-
-        analysis
-        .classList
-        .remove("hidden");
-
-
-        status.innerText =
-            "✅ วิเคราะห์สินค้าเสร็จแล้ว";
-
-
-    }
-    catch(error){
-
-        status.innerText =
-            "❌ เกิดข้อผิดพลาด";
-
-        result.innerText =
-            error.message ||
-            String(error);
-
-    }
-
-
-    button.disabled = false;
-
-    button.innerText =
-        "🔍 อ่านข้อมูลจากภาพ";
-
-}
-
-
-
-/* =====================================================
-   ทำความสะอาด OCR
-===================================================== */
-
-function cleanOCR(text){
-
-    return text
-
-    .replace(/\r/g,"")
-
-    .replace(/\u00A0/g," ")
-
-    .replace(/[¦]/g," ")
-
-    .replace(/[ \t]+/g," ")
-
-    .replace(/\n{2,}/g,"\n")
-
-    .trim();
-
-}
-
-
-
-/* =====================================================
-   แปลงตัวเลข OCR ที่มักอ่านผิด
-===================================================== */
-
-function fixOCRNumber(value){
-
-    return value
-
-    .replace(/O/g,"0")
-    .replace(/o/g,"0")
-
-    .replace(/I/g,"1")
-    .replace(/l/g,"1")
-
-    .replace(/\|/g,"1")
-
-    .replace(/S/g,"5")
-
-    .replace(/B(?=\d)/g,"8");
-
-}
-
-
-
-/* =====================================================
-   ดึงตัวเลข
-===================================================== */
-
-function numberValue(value){
-
-    value =
-        fixOCRNumber(value);
-
-    value =
-        value
-        .replace(/,/g,"")
-        .replace(/[^\d.]/g,"");
-
-
-    const n =
-        parseFloat(value);
-
-
-    if(
-        !Number.isFinite(n)
-    ){
-
-        return null;
-
-    }
-
-
-    return n;
-
-}
-
-
-
-/* =====================================================
-   ตรวจราคาสินค้า
-===================================================== */
-
-function extractPrice(text){
-
-    const lines =
-        text
-        .split("\n")
-        .map(
-            x => x.trim()
-        )
-        .filter(Boolean);
-
-
-    let candidates = [];
-
-
-    /*
-        ------------------------------------------------
-        PRIORITY 1
-
-        ตัวเลขที่ติดกับ ฿
-        เช่น
-
-        ฿2,151
-        ฿ 2,151
-        ฿2151
-        ------------------------------------------------
-    */
-
-
-    const bahtRegex =
-        /฿\s*([0-9OoIl|,\.]+)/gi;
-
-
-    for(
-        const line of lines
-    ){
-
-        let match;
-
-
-        while(
-            (match =
-                bahtRegex.exec(line))
-            !== null
-        ){
-
-            const value =
-                numberValue(
-                    match[1]
-                );
-
-
-            if(
-                value === null ||
-                value < 10 ||
-                value > 100000
-            ){
-                continue;
-            }
-
-
-            let score = 100;
-
-
-            /*
-                ราคาใกล้ข้อความ "ราคา"
-            */
-
-            if(
-                /ราคา|ซื้อโดยใช้โค้ด|ราคาหลังโค้ด/i
-                .test(line)
-            ){
-
-                score += 100;
-
-            }
-
-
-            /*
-                ถ้าเป็นส่วนลด / ลดสูงสุด
-                ห้ามเอาเป็นราคาหลัก
-            */
-
-            if(
-                /ลดสูงสุด|ขั้นต่ำ|ส่วนลด|ลดราคา|SPayLater/i
-                .test(line)
-            ){
-
-                score -= 100;
-
-            }
-
-
-            candidates.push({
-
-                value:value,
-
-                score:score,
-
-                line:line
-
-            });
-
-        }
-
-    }
-
-
-
-    /*
-        ------------------------------------------------
-        PRIORITY 2
-
-        ราคา xxx บาท
-        ------------------------------------------------
-    */
-
-
-    const bahtTextRegex =
-        /([0-9OoIl|,\.]+)\s*บาท/gi;
-
-
-    for(
-        const line of lines
-    ){
-
-        let match;
-
-
-        while(
-            (match =
-                bahtTextRegex.exec(line))
-            !== null
-        ){
-
-            const value =
-                numberValue(
-                    match[1]
-                );
-
-
-            if(
-                value === null ||
-                value < 10 ||
-                value > 100000
-            ){
-                continue;
-            }
-
-
-            let score = 80;
-
-
-            if(
-                /ราคา|ราคาหลังโค้ด|ซื้อโดยใช้โค้ด/i
-                .test(line)
-            ){
-
-                score += 100;
-
-            }
-
-
-            if(
-                /ลดสูงสุด|ขั้นต่ำ|ส่วนลด|SPayLater/i
-                .test(line)
-            ){
-
-                score -= 100;
-
-            }
-
-
-            candidates.push({
-
-                value:value,
-
-                score:score,
-
-                line:line
-
-            });
-
-        }
-
-    }
-
-
-
-    /*
-        ------------------------------------------------
-        PRIORITY 3
-
-        ราคาหลังโค้ด 2,151
-
-        หรือ
-
-        ราคา 2,151
-        ------------------------------------------------
-    */
-
-
-    const priceTextRegex =
-        /(?:ราคาหลังโค้ด|ราคาหลังโค้ดส่วนลด|ราคา|ซื้อโดยใช้โค้ด)[^\d]{0,20}([0-9OoIl|,\.]+)/gi;
-
-
-    for(
-        const line of lines
-    ){
-
-        let match;
-
-
-        while(
-            (match =
-                priceTextRegex.exec(line))
-            !== null
-        ){
-
-            const value =
-                numberValue(
-                    match[1]
-                );
-
-
-            if(
-                value === null ||
-                value < 10 ||
-                value > 100000
-            ){
-                continue;
-            }
-
-
-            let score = 120;
-
-
-            if(
-                /ราคาหลังโค้ด/i
-                .test(line)
-            ){
-
-                score += 100;
-
-            }
-
-
-            if(
-                /ลดสูงสุด|ขั้นต่ำ|ส่วนลด|SPayLater/i
-                .test(line)
-            ){
-
-                score -= 100;
-
-            }
-
-
-            candidates.push({
-
-                value:value,
-
-                score:score,
-
-                line:line
-
-            });
-
-        }
-
-    }
-
-
-
-    /*
-        ------------------------------------------------
-        ตัดตัวเลขที่ไม่ใช่ราคาสินค้า
-        ------------------------------------------------
-    */
-
-    candidates =
-        candidates.filter(
-            item => {
-
-                const line =
-                    item.line;
-
-
-                if(
-                    /ลดสูงสุด/i.test(line)
-                ){
-
-                    return false;
-
-                }
-
-
-                if(
-                    /ขั้นต่ำ/i.test(line)
-                ){
-
-                    return false;
-
-                }
-
-
-                if(
-                    /SPayLater/i.test(line)
-                ){
-
-                    return false;
-
-                }
-
-
-                return true;
-
-            }
-        );
-
-
-
-    if(
-        !candidates.length
-    ){
-
-        return "";
-
-    }
-
-
-
-    /*
-        เลือกคะแนนสูงสุด
-    */
-
-    candidates.sort(
-        (a,b) =>
-            b.score - a.score
-    );
-
-
-    const price =
-        candidates[0].value;
-
-
-    return (
-        "฿" +
-        price.toLocaleString(
-            "en-US",
-            {
-                maximumFractionDigits:2
-            }
-        )
-    );
-
-}
-
-
-
-/* =====================================================
-   หาชื่อสินค้า
-===================================================== */
+/* =========================================================
+   FIND PRODUCT NAME
+========================================================= */
 
 function findProductName(text){
 
-    const lines =
-        text
+    const lines = text
         .split("\n")
-        .map(
-            x => x.trim()
-        )
-        .filter(
-            x => x.length > 8
-        );
+        .map(x => x.trim())
+        .filter(x => x.length > 2);
 
 
-    const ignore = [
+    const badWords = [
 
         "PAYDAY",
         "SPayLater",
         "ShopeeVIP",
         "ส่วนลด",
-        "ราคาหลังโค้ด",
+        "ส่งฟรี",
         "ซื้อโดยใช้โค้ด",
         "ขายแล้ว",
         "ตัวเลือกสินค้า",
         "8 ตัวเลือกสินค้า",
-        "ส่งฟรี",
         "เก็บแล้ว",
-        "ขั้นต่ำ",
-        "ลดสูงสุด"
+        "บาท",
+        "ราคา",
+        "รวม"
 
     ];
 
 
-    const productWords =
-        /กล้อง|กล้องวงจรปิด|มือถือ|โทรศัพท์|เสื้อ|กางเกง|รองเท้า|กระเป๋า|คีย์บอร์ด|เมาส์|หูฟัง|พัดลม|เครื่อง|สาย|ชาร์จ|แบตเตอรี่|สินค้า/i;
-
-
-    for(
-        const line of lines
-    ){
-
-        if(
-            ignore.some(
-                word =>
-                    line.includes(word)
-            )
-        ){
-
-            continue;
-
-        }
-
-
-        if(
-            productWords.test(line)
-        ){
-
-            return line
-            .replace(
-                /\s+/g,
-                " "
-            )
-            .trim();
-
-        }
-
-    }
-
-
     /*
-        ถ้าไม่เจอชื่อสินค้า
-        พยายามเอาบรรทัดที่ยาวที่สุด
+       หา line ที่ดูเหมือนชื่อสินค้า
     */
 
-    let longest = "";
+    for(let line of lines){
+
+        let lower = line.toLowerCase();
+
+        let bad = false;
+
+        for(let word of badWords){
+
+            if(lower.includes(word.toLowerCase())){
+
+                bad = true;
+                break;
+
+            }
+
+        }
+
+        if(bad){
+            continue;
+        }
 
 
-    for(
-        const line of lines
-    ){
+        // ต้องมีความยาวพอสมควร
+        if(line.length < 8){
+            continue;
+        }
 
-        if(
-            line.length > longest.length &&
-            !/PAYDAY|ส่วนลด|SPayLater/i.test(line)
-        ){
 
-            longest = line;
+        // ถ้าเป็นตัวเลขล้วนไม่เอา
+        if(/^[\d\s.,฿]+$/.test(line)){
+            continue;
+        }
+
+
+        /*
+           ชื่อสินค้ามักมีตัวอักษรไทย/อังกฤษ
+        */
+
+        if(/[ก-๙A-Za-z]/.test(line)){
+
+            return line
+                .replace(/\s+/g," ")
+                .trim();
 
         }
 
     }
 
 
-    return longest;
+    return "ไม่สามารถระบุชื่อสินค้าได้";
 
 }
 
 
-
-/* =====================================================
-   จุดเด่นสินค้า
-===================================================== */
+/* =========================================================
+   FIND PRODUCT FEATURES
+========================================================= */
 
 function findFeatures(text){
+
+    const features = [];
 
     const keywords = [
 
@@ -1192,56 +536,42 @@ function findFeatures(text){
         "4K",
         "HD",
         "Ultra HD",
-        "WiFi",
-        "Wi-Fi",
-        "ไม่ต้องใช้ WiFi",
+        "Solar",
+        "360 องศา",
+        "ไร้สาย",
         "ไม่ต้องเติมเงิน",
         "ไม่ต้องใช้ไฟ",
-        "ไร้สาย",
-        "Solar",
-        "โซล่า",
-        "โซลาร์เซลล์",
-        "ชาร์จเร็ว",
-        "กันน้ำ",
-        "หมุน 360 องศา",
-        "360 องศา",
-        "รับประกัน",
+        "ไม่ต้องใช้ WiFi",
+        "WiFi",
         "ฟรี",
-        "ส่งฟรี"
+        "ส่งฟรี",
+        "รับประกัน",
+        "AI",
+        "กันน้ำ",
+        "กลางคืน",
+        "สีในตัว"
 
     ];
 
 
-    const features = [];
+    keywords.forEach(function(keyword){
 
+        const regex = new RegExp(
+            keyword.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"),
+            "i"
+        );
 
-    keywords.forEach(
-        keyword => {
+        if(regex.test(text)){
 
-            if(
-                text
-                .toLowerCase()
-                .includes(
-                    keyword.toLowerCase()
-                )
-            ){
+            if(!features.includes(keyword)){
 
-                if(
-                    !features.includes(
-                        keyword
-                    )
-                ){
-
-                    features.push(
-                        keyword
-                    );
-
-                }
+                features.push(keyword);
 
             }
 
         }
-    );
+
+    });
 
 
     return features;
@@ -1249,305 +579,389 @@ function findFeatures(text){
 }
 
 
+/* =========================================================
+   GENERATE HOOK
+========================================================= */
 
-/* =====================================================
-   ยอดขาย
-===================================================== */
+function generateHooks(name,price,features){
 
-function findSold(text){
+    const featureText =
+        features.length > 0
+        ? features.slice(0,4).join(", ")
+        : "ฟังก์ชันครบ ใช้งานสะดวก";
 
-    const match =
-        text.match(
-            /ขายแล้ว\s*[0-9OoIl|,]+\+?\s*ชิ้น/i
-        );
 
+    return [
 
-    if(match){
+        `ใครกำลังหากล้องดี ๆ ราคาไม่แรง ตัวนี้น่าสนใจมาก เพราะมี ${featureText}`,
 
-        return match[0];
+        `เห็นราคาแล้วต้องบอกเลยว่าตัวนี้น่าสนใจ โดยเฉพาะคนที่กำลังมองหา ${name}`,
 
-    }
+        `ไม่ต้องเดินสายให้ยุ่งยาก ตัวนี้มี ${featureText} อยู่ในตัว`,
 
+        `ถ้ากำลังหากล้องไว้ดูบ้าน ดูร้าน หรือดูพื้นที่ ตัวนี้ลองดูเลย`,
 
-    return "";
-
-}
-
-
-
-/* =====================================================
-   วิเคราะห์สินค้า
-===================================================== */
-
-function analyzeProduct(text){
-
-    const clean =
-        cleanOCR(text);
-
-
-    const product =
-        findProductName(
-            clean
-        );
-
-
-    const price =
-        extractPrice(
-            clean
-        );
-
-
-    const features =
-        findFeatures(
-            clean
-        );
-
-
-    const sold =
-        findSold(
-            clean
-        );
-
-
-
-    let info = "";
-
-
-    info +=
-        "ชื่อสินค้า: " +
-        (
-            product ||
-            "ตรวจไม่พบ"
-        ) +
-        "\n\n";
-
-
-    info +=
-        "ราคา: ";
-
-
-    if(price){
-
-        info +=
-            '<span class="price">' +
-            price +
-            "</span>";
-
-    }
-    else{
-
-        info +=
-            "ตรวจไม่พบ";
-
-    }
-
-
-    info +=
-        "\n\n";
-
-
-    info +=
-        "จุดเด่น: " +
-        (
-            features.length
-            ?
-            features.join(", ")
-            :
-            "ตรวจไม่พบ"
-        ) +
-        "\n\n";
-
-
-    info +=
-        "ยอดขาย: " +
-        (
-            sold ||
-            "ไม่พบข้อมูล"
-        );
-
-
-    document
-    .getElementById(
-        "productInfo"
-    )
-    .innerHTML = info;
-
-
-
-    createHooks(
-        product,
-        price,
-        features
-    );
-
-
-    createScript(
-        product,
-        price,
-        features
-    );
-
-}
-
-
-
-/* =====================================================
-   สร้าง Hook
-===================================================== */
-
-function createHooks(
-    product,
-    price,
-    features
-){
-
-    const mainFeature =
-        features.length
-        ?
-        features[0]
-        :
-        "ใช้งานง่าย";
-
-
-    const hooks = [
-
-        "ใครกำลังหาของดีราคาคุ้ม ต้องดูตัวนี้",
-
-        "ตัวนี้เห็นราคาแล้วน่าสนใจมาก",
-
-        "ของชิ้นนี้ฟังก์ชันเยอะกว่าที่คิด",
-
-        "ถ้าใครกำลังหา " +
-        mainFeature +
-        " ตัวนี้น่าสนใจ",
-
-        "เจอของดีแบบนี้ เลยอยากเอามาบอกต่อ",
-
-        "ใครกำลังตัดสินใจซื้อ ลองดูตัวนี้ก่อน",
-
-        "ตัวนี้เหมาะกับคนที่อยากได้ของครบในชิ้นเดียว",
-
-        "ฟังก์ชันแบบนี้ ไม่คิดว่าจะมาอยู่ในราคานี้",
-
-        "ใครกำลังมองหาของใช้แบบนี้ ห้ามเลื่อนผ่าน",
-
-        "ตัวนี้เป็นอีกตัวที่น่าจับตามองมาก"
+        `จุดเด่นของตัวนี้คือ ${featureText} ใครกำลังหาอยู่ลองดูตัวนี้ครับ`
 
     ];
 
-
-    const container =
-        document.getElementById(
-            "hooks"
-        );
-
-
-    container.innerHTML = "";
-
-
-    hooks.forEach(
-        function(hook,index){
-
-            const div =
-                document.createElement(
-                    "div"
-                );
-
-
-            div.className =
-                "hook";
-
-
-            div.innerText =
-                (index + 1) +
-                ". " +
-                hook;
-
-
-            container.appendChild(
-                div
-            );
-
-        }
-    );
-
 }
 
 
+/* =========================================================
+   GENERATE VIDEO SCRIPT
+========================================================= */
 
-/* =====================================================
-   สร้าง Script 20 วินาที
-===================================================== */
+function generateScript(name,price,features){
 
-function createScript(
-    product,
-    price,
-    features
-){
-
-    let featureText =
-        features.length
-        ?
-        features
-        .slice(0,3)
-        .join(", ")
-        :
-        "ฟังก์ชันครบ ใช้งานสะดวก";
+    const featureText =
+        features.length > 0
+        ? features.slice(0,5).join(" / ")
+        : "ใช้งานง่ายและสะดวก";
 
 
-    let priceText =
-        price ||
-        "เช็กราคาที่หน้าสินค้า";
+    return `ใครกำลังมองหา ${name}
 
-
-    finalScript =
-`ใครกำลังมองหาของดีราคาคุ้ม ตัวนี้น่าสนใจมาก
+ตัวนี้น่าสนใจมากครับ
 
 จุดเด่นคือ ${featureText}
 
-ใช้งานสะดวก และเหมาะกับคนที่กำลังมองหาของแบบนี้
+เหมาะสำหรับคนที่อยากได้อุปกรณ์ไว้ใช้งานแบบสะดวก ๆ
 
-ตอนนี้ราคา ${priceText}
+ส่วนราคาที่อ่านได้จากภาพคือ ${formatPrice(price)}
 
-ใครสนใจ กดดูรายละเอียดที่ตะกร้าได้เลย`;
-
-
-    document
-    .getElementById(
-        "scriptResult"
-    )
-    .innerText =
-        finalScript;
+ถ้าใครสนใจ ลองกดเข้าไปดูรายละเอียดและเช็กราคาปัจจุบันก่อนตัดสินใจได้เลยครับ`;
 
 }
 
 
+/* =========================================================
+   ANALYZE
+========================================================= */
 
-/* =====================================================
-   Copy Script
-===================================================== */
+function analyzeProduct(text){
+
+    const cleanText = cleanOCR(text);
+
+    const price = findMainPrice(cleanText);
+
+    const name = findProductName(cleanText);
+
+    const features = findFeatures(cleanText);
+
+    const hooks = generateHooks(
+        name,
+        price,
+        features
+    );
+
+    const script = generateScript(
+        name,
+        price,
+        features
+    );
+
+
+    return {
+
+        name:name,
+
+        price:price,
+
+        features:features,
+
+        hooks:hooks,
+
+        script:script,
+
+        raw:cleanText
+
+    };
+
+}
+
+
+/* =========================================================
+   DISPLAY RESULT
+========================================================= */
+
+function displayResult(data){
+
+    const result = document.getElementById("result");
+
+    let featureText =
+        data.features.length > 0
+        ? data.features.join(", ")
+        : "ไม่พบข้อมูล";
+
+
+    let hooksHTML = "";
+
+    data.hooks.forEach(function(hook,index){
+
+        hooksHTML += `
+            <div class="hook">
+                <b>Hook ${index + 1}</b><br>
+                ${hook}
+            </div>
+        `;
+
+    });
+
+
+    result.innerHTML = `
+
+        <div class="resultBox">
+
+            <div class="sectionTitle">
+                🛍️ ข้อมูลสินค้า
+            </div>
+
+            <div class="info">
+
+                <b>ชื่อสินค้า:</b><br>
+                ${escapeHTML(data.name)}
+
+                <br><br>
+
+                <b>ราคา:</b><br>
+
+                <span class="price">
+                    ${formatPrice(data.price)}
+                </span>
+
+                <br><br>
+
+                <b>จุดเด่น:</b><br>
+                ${escapeHTML(featureText)}
+
+            </div>
+
+        </div>
+
+
+        <div class="resultBox">
+
+            <div class="sectionTitle">
+                🎯 Hook ขายสินค้า
+            </div>
+
+            ${hooksHTML}
+
+        </div>
+
+
+        <div class="resultBox">
+
+            <div class="sectionTitle">
+                🎬 สคริปต์วิดีโอ
+            </div>
+
+            <div class="script">
+                ${escapeHTML(data.script)}
+            </div>
+
+            <button
+                class="copyBtn"
+                onclick="copyScript()"
+            >
+                📋 คัดลอกสคริปต์
+            </button>
+
+        </div>
+
+
+        <div class="raw">
+
+            <details>
+
+                <summary>
+                    🔎 ดูข้อความ OCR ที่อ่านได้
+                </summary>
+
+                <br>
+
+                <textarea readonly>${escapeHTML(data.raw)}</textarea>
+
+            </details>
+
+        </div>
+
+    `;
+
+
+    lastResultText = data.script;
+
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHTML(text){
+
+    if(!text){
+        return "";
+    }
+
+    return text
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   COPY SCRIPT
+========================================================= */
 
 async function copyScript(){
 
+    if(!lastResultText){
+        return;
+    }
+
     try{
 
-        await navigator.clipboard.writeText(
-            finalScript
-        );
+        await navigator.clipboard.writeText(lastResultText);
 
+        alert("✅ คัดลอกสคริปต์แล้ว");
 
-        alert(
-            "✅ คัดลอกสคริปต์แล้ว"
-        );
+    }catch(error){
 
-    }
-    catch(error){
-
-        alert(
-            "❌ คัดลอกไม่สำเร็จ"
-        );
+        alert("ไม่สามารถคัดลอกอัตโนมัติได้");
 
     }
+
+}
+
+
+/* =========================================================
+   OCR
+========================================================= */
+
+async function readImage(){
+
+    const input =
+        document.getElementById("imageInput");
+
+    const result =
+        document.getElementById("result");
+
+    const status =
+        document.getElementById("status");
+
+    const button =
+        document.getElementById("readBtn");
+
+
+    if(!input.files.length){
+
+        alert("กรุณาเลือกรูปก่อน");
+
+        return;
+
+    }
+
+
+    const file = input.files[0];
+
+
+    result.innerHTML = "";
+
+    status.innerHTML =
+        "⏳ กำลังเตรียมอ่านภาพ...";
+
+    button.disabled = true;
+
+
+    try{
+
+        /*
+           สร้าง Worker
+        */
+
+        const worker =
+            await Tesseract.createWorker(
+                "tha+eng"
+            );
+
+
+        status.innerHTML =
+            "⏳ กำลังอ่านข้อมูลจากภาพ...";
+
+
+        const {data} =
+            await worker.recognize(file);
+
+
+        await worker.terminate();
+
+
+        const ocrText =
+            data.text || "";
+
+
+        if(!ocrText.trim()){
+
+            status.innerHTML =
+                "❌ ไม่พบข้อความในภาพ";
+
+            button.disabled = false;
+
+            return;
+
+        }
+
+
+        status.innerHTML =
+            "⏳ กำลังวิเคราะห์ข้อมูลสินค้า...";
+
+
+        /*
+           วิเคราะห์
+        */
+
+        const product =
+            analyzeProduct(ocrText);
+
+
+        displayResult(product);
+
+
+        status.innerHTML =
+            "✅ วิเคราะห์สินค้าเสร็จแล้ว";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        status.innerHTML =
+            "❌ เกิดข้อผิดพลาด";
+
+        result.innerHTML = `
+
+            <div class="resultBox">
+
+                <b>รายละเอียดข้อผิดพลาด</b>
+
+                <br><br>
+
+                ${escapeHTML(error.message)}
+
+            </div>
+
+        `;
+
+    }
+
+
+    button.disabled = false;
 
 }
 
